@@ -24,8 +24,9 @@ import com.agesadev.instagramui.R
 @Composable
 fun ProfileScreen() {
     Column(modifier = Modifier.fillMaxSize()) {
-        TopBar(name = "agesa_collins")
+        TopBar(name = "agesa_collins", modifier = Modifier.padding(10.dp))
         Spacer(modifier = Modifier.height(4.dp))
+        ProfileSection()
     }
 }
 
@@ -62,7 +63,7 @@ fun TopBar(
             painter = painterResource(id = R.drawable.dotmenu),
             contentDescription = "Back",
             tint = Color.Black,
-            modifier = Modifier.size(24.dp)
+            modifier = Modifier.size(20.dp)
         )
 
     }
@@ -71,7 +72,7 @@ fun TopBar(
 
 @Composable
 fun ProfileSection(
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     Column(modifier.fillMaxWidth()) {
         Row(
@@ -153,4 +154,12 @@ fun ProfileStat(
     }
 
 }
+
+//@Composable
+//fun ProfileDescription(
+//    displayName:
+//) {
+//
+//
+//}
 
