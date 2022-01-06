@@ -15,6 +15,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -89,8 +91,16 @@ fun ProfileSection(
             Spacer(modifier = Modifier.width(16.dp))
             StatSection(modifier = Modifier.weight(7f))
         }
+        ProfileDescription(
+            displayName = "Agesa Collins",
+            description = "Android Developer",
+            url = "https://github.com/agesa3",
+            followedBy = listOf("Elon Musk", "Jeff Bezos"),
+            otherCount = 50
+        )
 
     }
+
 
 }
 
@@ -155,11 +165,67 @@ fun ProfileStat(
 
 }
 
-//@Composable
-//fun ProfileDescription(
-//    displayName:
-//) {
-//
-//
-//}
+@Composable
+fun ProfileDescription(
+    displayName: String,
+    description: String,
+    url: String,
+    followedBy: List<String>,
+    otherCount: Int
+) {
+    val letterSpacing = 0.5.sp
+    val lineHeight = 20.sp
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp)
+    ) {
+        Text(
+            text = displayName,
+            fontWeight = FontWeight.Bold,
+            letterSpacing = letterSpacing,
+            lineHeight = lineHeight
+        )
+        Text(
+            text = description,
+            letterSpacing = letterSpacing,
+            lineHeight = lineHeight
+        )
+        Text(
+            text = url,
+            color = Color(0xff3d3d91),
+            letterSpacing = letterSpacing,
+            lineHeight = lineHeight
+        )
+
+        if (followedBy.isNotEmpty()) {
+            Text(
+                text = buildAnnotatedString {
+                    val boldStyle = SpanStyle(
+                        color = Color.Black,
+                        fontWeight = FontWeight.Bold
+                    )
+                    append("Followed by ")
+                    pushStyle(boldStyle)
+                    followedBy.forEachIndexed { index, name ->
+                        pushStyle(boldStyle)
+                        append(name)
+                        pop()
+                        if (index < followedBy.size - 1) {
+                            append(", ")
+                        }
+                    }
+                    if (otherCount > 2) {
+                        append(" and ")
+                        pushStyle(boldStyle)
+                        append("$otherCount others")
+                    }
+                },
+                letterSpacing = letterSpacing,
+                lineHeight = lineHeight
+            )
+        }
+    }
+
+}
 
