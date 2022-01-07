@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.agesadev.instagramui.R
 
+@ExperimentalFoundationApi
 @Composable
 fun ProfileScreen() {
     var selectedTabIndex by remember {
@@ -54,21 +55,22 @@ fun ProfileScreen() {
         HighlightSection(
             highlights = listOf(
                 ImageWithText(
-                    image = painterResource(id = R.drawable.bell),
-                    text = "Youtube"
+                    image = painterResource(id = R.drawable.image_one),
+                    text = "Q/A"
                 ),
                 ImageWithText(
-                    image = painterResource(id = R.drawable.bell),
-                    text = "Youtube"
+                    image = painterResource(id = R.drawable.image_2),
+                    text = "Fun"
                 ),
                 ImageWithText(
-                    image = painterResource(id = R.drawable.bell),
-                    text = "Youtube"
+                    image = painterResource(id = R.drawable.image_4),
+                    text = "Story"
                 ),
                 ImageWithText(
-                    image = painterResource(id = R.drawable.bell),
-                    text = "Youtube"
-                ),
+                    image = painterResource(id = R.drawable.image_3),
+                    text = "Android",
+
+                    ),
             ),
             modifier = Modifier
                 .fillMaxWidth()
@@ -78,7 +80,7 @@ fun ProfileScreen() {
         PostTabView(
             imageWithText = listOf(
                 ImageWithText(
-                    image = painterResource(id = R.drawable.bell),
+                    image = painterResource(id = R.drawable.grid),
                     text = "Posts"
                 ),
                 ImageWithText(
@@ -86,7 +88,7 @@ fun ProfileScreen() {
                     text = "Reels"
                 ),
                 ImageWithText(
-                    image = painterResource(id = R.drawable.bell),
+                    image = painterResource(id = R.drawable.tv),
                     text = "IGTV"
                 ),
                 ImageWithText(
@@ -97,10 +99,19 @@ fun ProfileScreen() {
         ) {
             selectedTabIndex = it
         }
-        when(selectedTabIndex){
-            0-> PostSection(posts = listOf(
+        when (selectedTabIndex) {
+            0 -> PostSection(
+                posts = listOf(
+                    painterResource(id = R.drawable.image_2),
+                    painterResource(id = R.drawable.image_one),
+                    painterResource(id = R.drawable.image_3),
+                    painterResource(id = R.drawable.image_4),
+                    painterResource(id = R.drawable.image_2),
+                    painterResource(id = R.drawable.image_one),
+                ),
+                modifier = Modifier.fillMaxWidth()
 
-            ))
+            )
 
         }
     }
@@ -157,7 +168,7 @@ fun ProfileSection(
                 .padding(20.dp)
         ) {
             RoundImage(
-                image = painterResource(id = R.drawable.profile_me),
+                image = painterResource(id = R.drawable.avatar),
                 modifier = Modifier
                     .size(100.dp)
                     .weight(3f)
@@ -197,7 +208,7 @@ fun RoundImage(
 
             )
             .padding(3.dp)
-            .clip(CircleShape)
+            .clip(CircleShape), contentScale = ContentScale.Fit
     )
 
 }
@@ -392,8 +403,9 @@ fun HighlightSection(
             ) {
                 RoundImage(
                     image = highlights[it].image,
-                    modifier = Modifier.size(70.dp)
-                )
+                    modifier = Modifier.size(70.dp),
+
+                    )
                 Text(
                     text = highlights[it].text, overflow = TextOverflow.Ellipsis,
                     textAlign = TextAlign.Center
@@ -408,7 +420,7 @@ fun HighlightSection(
 fun PostTabView(
     modifier: Modifier = Modifier,
     imageWithText: List<ImageWithText>,
-    onTabSelected: (selectedIndex: Int) -> Int
+    onTabSelected: (selectedIndex: Int) -> Unit
 ) {
 
     var selectedTabIndex by remember {
